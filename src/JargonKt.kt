@@ -10,11 +10,9 @@ fun main() {
 }
 
 fun Speak.speakOutloud(voice: Voice = Voice.SAMANTHA) {
-    val dices = List(4) { d66() }
-    println(dices)
-    val speak = this.speak(dices)
-    println(speak)
-    say(speak.joinToString(" "), voice)
+    val speech = this.speak(d66(), d66(), d66(), d66())
+    println(speech)
+    say(speech.joinToString(" "), voice)
 }
 
 private fun d66(): D66 = 10*d6() + d6()

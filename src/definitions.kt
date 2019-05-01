@@ -118,8 +118,8 @@ enum class Speak(def: String) {
         66 inoculate mutated intrinsic lobe
     """);
 
-    fun speak(diceResults: List<D66>): List<String> =
-        diceResults.withIndex().map { (index, dieValue) ->
+    fun speak(die1: D66, die2: D66, die3: D66, die4: D66): List<String> =
+        listOf(die1, die2, die3, die4).withIndex().map { (index, dieValue) ->
             definition.selectRow(dieValue).words[index]
         }
 
