@@ -1,18 +1,24 @@
 import die.D66
+import random.chooseRandomly
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 
 fun main() {
-    Speak.ENGINEERING.speakOutloud(Voice.DANIEL)
-    Speak.MEDICAL.speakOutloud(Voice.SAMANTHA)
-    Speak.TECH.speakOutloud(Voice.VEENA)
+    repeat(1000) {
+        chooseRandomly<Speak>().speakOutloud(voice = chooseRandomly())
+        val waitTime = (Math.random() * 10000).toLong()
+        print("... ${waitTime/1000} seconds till next talk.")
+        Thread.sleep(waitTime)
+        println()
+    }
 }
 
 fun Speak.speakOutloud(voice: Voice = Voice.SAMANTHA) {
     val speech = this.speak(D66.roll(), D66.roll(), D66.roll(), D66.roll())
-    println(speech)
-    say(speech.joinToString(" "), voice)
+    val sentence = speech.joinToString(" ")
+    print("$voice talks $this: $sentence".toLowerCase())
+    say(sentence, voice)
 }
 
 private fun say(words: String, voice: Voice) {
