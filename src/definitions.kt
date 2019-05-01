@@ -1,7 +1,7 @@
-typealias D6 = Int
-typealias D66 = Int
+import die.D66
 
 // Definition texts have been taken from Judge Dredd role-playing game rule book
+// TODO consider different format here so no processing would be needed runtime
 enum class Speak(def: String) {
     ENGINEERING("""
         11 increase microscopic quantum relay
@@ -119,26 +119,22 @@ enum class Speak(def: String) {
     """);
 
     fun speak(die1: D66, die2: D66, die3: D66, die4: D66): List<String> =
-        listOf(die1, die2, die3, die4).withIndex().map { (index, dieValue) ->
-            definition.selectRow(dieValue).words[index]
+        listOf(die1, die2, die3, die4).withIndex().map {
+            definition.getValue(it.value)[it.index]
         }
 
-    private val definition = defineSpeak(def)
+    private val definition =
+        def.trimIndent()
+            .split("\n")
+            .filter { it.isNotBlank() }
+            .map { row ->
+                val parsed = row.split(" ").map { it.trim() }.filter { it.isNotBlank() }
+                val d66 = D66.fromInt(parsed[0].toInt())
+                val words = parsed.drop(1).apply {
+                    require(size == 4) { "illegal amount of words: $this" }
+                }
+                d66 to words
+        }.toMap()
 
-    private fun List<WordRow>.selectRow(value: D66): WordRow =
-        this.zipWithNext().find { (a, b) ->
-            value < a.number || value >= a.number && value < b.number
-        }?.first ?: this.last()
-
-    private class WordRow(val number: Int, val words: List<String>)
-
-    private fun defineSpeak(def: String) = def.trimIndent().split("\n").filter { it.isNotBlank() }.map {
-        it.split(" ").let { parsed ->
-            WordRow(parsed[0].toInt(), parsed.drop(1))
-        }
-    }
 }
 
-enum class Voice {
-    ALEX, FRED, SAMANTHA, VICTORIA, TESSA, KAREN, VEENA, DANIEL
-}

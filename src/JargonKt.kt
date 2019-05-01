@@ -1,6 +1,6 @@
+import die.D66
 import java.io.File
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
 
 
 fun main() {
@@ -10,13 +10,11 @@ fun main() {
 }
 
 fun Speak.speakOutloud(voice: Voice = Voice.SAMANTHA) {
-    val speech = this.speak(d66(), d66(), d66(), d66())
+    val speech = this.speak(D66.roll(), D66.roll(), D66.roll(), D66.roll())
     println(speech)
     say(speech.joinToString(" "), voice)
 }
 
-private fun d66(): D66 = 10*d6() + d6()
-private fun d6(): D6 = (Math.random() * 6).roundToInt() + 1
 private fun say(words: String, voice: Voice) {
     "say $words -v $voice".runCommand()
 }
