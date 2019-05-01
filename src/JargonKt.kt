@@ -1,6 +1,8 @@
 import die.D66
+import jargon.Speeching
 import utils.runCommand
 import utils.selectRandomly
+import voices.Voice
 
 
 fun main() {

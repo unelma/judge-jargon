@@ -1,3 +1,6 @@
+package jargon
+
+import die.D6
 import die.D66
 
 // Definition texts have been taken from Judge Dredd role-playing game rule book
@@ -129,12 +132,12 @@ enum class Speeching(def: String) {
             .filter { it.isNotBlank() }
             .map { row ->
                 val parsed = row.split(" ").map { it.trim() }.filter { it.isNotBlank() }
-                val d66 = D66.fromInt(parsed[0].toInt())
+                val d66 = parsed[0].let { D66(it[0].toD6(), it[1].toD6()) }
                 val words = parsed.drop(1).apply {
                     require(size == 4) { "illegal amount of words: $this" }
                 }
                 d66 to words
         }.toMap()
-
 }
 
+private fun Char.toD6() = D6.fromInt(Character.getNumericValue(this))

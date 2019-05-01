@@ -1,6 +1,9 @@
 package die
 
-class D66 private constructor(val value: Int) {
+class D66(die1: D6, die2: D6) {
+
+    private val value: Int = 10 * die1.value + die2.value
+
     init {
         require(value in 11..66) { "invalid value: $value" }
     }
@@ -10,9 +13,10 @@ class D66 private constructor(val value: Int) {
 
     override fun hashCode(): Int = value
 
+    override fun toString(): String = value.toString()
+
     companion object {
 
-        fun roll() = D66(10 * D6.roll().value + D6.roll().value)
-        fun fromInt(value: Int) = D66(value)
+        fun roll() = D66(D6.roll(), D6.roll())
     }
 }
