@@ -12,7 +12,7 @@ class D66 private constructor(val value: Int) {
 
     companion object {
 
-        fun roll(): D66 = D66(10 * D6.roll().value + D6.roll().value)
+        fun roll() = D66(10 * D6.roll().value + D6.roll().value)
         fun fromInt(value: Int) = D66(value)
     }
 }

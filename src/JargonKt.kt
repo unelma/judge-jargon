@@ -19,7 +19,7 @@ private fun say(words: String, voice: Voice) {
     "say $words -v $voice".runCommand()
 }
 
-// From Stack Overflow: https://stackoverflow.com/a/52441962
+// From https://stackoverflow.com/a/52441962
 fun String.runCommand(workingDir: File = File("."),
                       timeoutAmount: Long = 60,
                       timeoutUnit: TimeUnit = TimeUnit.SECONDS) =
