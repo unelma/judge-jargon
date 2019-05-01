@@ -1,6 +1,6 @@
 package die
 
-import kotlin.math.roundToInt
+import utils.selectRandomly
 
 class D6 private constructor(val value: Int) {
     init {
@@ -13,6 +13,6 @@ class D6 private constructor(val value: Int) {
     override fun hashCode(): Int = value
 
     companion object {
-        fun roll(): D6 = D6((Math.random() * 5).roundToInt() + 1)
+        fun roll() = D6((1..6).selectRandomly())
     }
 }

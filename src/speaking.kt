@@ -2,7 +2,7 @@ import die.D66
 
 // Definition texts have been taken from Judge Dredd role-playing game rule book
 // TODO consider different format here so no processing would be needed runtime
-enum class Speak(def: String) {
+enum class Speeching(def: String) {
     ENGINEERING("""
         11 increase microscopic quantum relay
         12 decrease photonic artificial inversion
@@ -118,8 +118,8 @@ enum class Speak(def: String) {
         66 inoculate mutated intrinsic lobe
     """);
 
-    fun speak(die1: D66, die2: D66, die3: D66, die4: D66): List<String> =
-        listOf(die1, die2, die3, die4).withIndex().map {
+    fun speak(die1: D66, die2: D66, die3: D66, die4: D66): String =
+        listOf(die1, die2, die3, die4).withIndex().joinToString(" ") {
             definition.getValue(it.value)[it.index]
         }
 
