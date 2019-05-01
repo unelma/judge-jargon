@@ -1,6 +1,7 @@
 typealias D6 = Int
 typealias D66 = Int
 
+// Definition texts have been taken from Judge Dredd role-playing game rule book
 enum class Speak(def: String) {
     ENGINEERING("""
         11 increase microscopic quantum relay
